@@ -25,9 +25,10 @@ var User = require('../models/user');
 //         });
 //     })
 
-userRouter.route('/myportal')
+userRouter.route('/')
     .get(function (req, res) {
-        User.findOne({_id: req.params.userId}, function (err, user) {
+        console.log(req.user);
+        User.findOne({_id: req.user._id}, function (err, user) {
             if (err) res.status(500).send(err);
             if (!user) res.status(404).send('Was not found');
             else res.send(user);

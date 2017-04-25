@@ -1,15 +1,7 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<li><a href="#/login">Login</a></li>
-<li><a href="#/signup">Signup</a></li>
-<li><a href="#/logout">Logout</a></li>
-</body>
-</html>
+<nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">
+        <li ng-hide="userService.isAuthenticated()"><a href="/#/login">Login</a></li>
+        <li ng-hide="userService.isAuthenticated()"><a href="/#/signup">Signup</a></li>
+        <li ng-show="userService.isAuthenticated()"><a href="/#/logout">Logout</a></li>
+    </ul>
+</nav>

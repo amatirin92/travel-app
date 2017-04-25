@@ -12,6 +12,10 @@ app.config(["$routeProvider", function($routeProvider){
             templateUrl: "components/auth/login/login.html",
             controller: "LoginController"
         })
+        .when('/myportal', {
+            templateUrl: "components/portal/portal.html",
+            controller:"PortalController"
+        })
         .when('/logout', {
             controller: "LogoutController",
             template: ""
@@ -46,10 +50,34 @@ app.service("UserService", ["$http", "$location", "TokenService", function ($htt
         $location.path('/');
     };
     this.isAuthenticated = function (){
-        return !!ToeknService.getToken();
+        return !!TokenService.getToken();
     };
 
 }]);
+
+//http receptors to send our token along with our request
+app.service("AuthInterceptor", ['$q', "$location", "TokenService", function($q, $location, TokenService){
+    this.request = function(config){
+        var token = TokenService.getToken();
+        if(token){
+            config.headers = config.headers || {};
+            config.headers.Authorization = "Bearer " + token;
+        }
+        return config;
+    }
+    this.responseError = function(response){
+        if (response.status === 401){
+            TokenService.removeToken();
+            $location.path('/login');
+        }
+        return $q.reject(response);
+    }
+}]);
+
+app.config(['$httpProvider', function($httpProvider){
+    $httpProvider.interceptors.push("AuthInterceptor");
+}])
+
 
 
 
