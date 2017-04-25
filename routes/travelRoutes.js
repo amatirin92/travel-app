@@ -1,43 +1,54 @@
 var express = require('express');
-var travelRouter = express.Router();
-var Travel = require('../models/travelprop');
+var userRouter = express.Router();
+var User = require('../models/user');
 
-travelRouter.route('/')
-.get(function (req, res){
-    Travel.find(function(err, travels){
-        if (err) res.status(500).send(err);
-        res.send(travels);
-    });
-})
+// userRouter.route('/')
+// // .get(function (req, res){
+// //     User.find({user: req.user._id}, function(err, users){
+// //         if (err) res.status(500).send(err);
+// //         res.send(users);
+// //     });
+// // })
+//
+// .post(function(req,res){
+//     var user = new User(req.body);
+//     user.user = req.user;
+//     user.save(function(err,newUser){
+//         if (err) res.status(500).send(err);
+//         res.status(201).send(newUser);
+//     });
+// })
+//     .put(function(req, res){
+//         User.findOneAndUpdate({_id: req.params.userId, user: req.user._id}, req.body, {new: true}, function (err, user){
+//             if (err) res.status(500).send(err);
+//             res.send(user);
+//         });
+//     })
 
-.post(function(req,res){
-    var travel = new Travel(req.body);
-    travel.save(function(err,newTravel){
-        if (err) res.status(500).send(err);
-        res.status(201).send(newTravel);
-    });
-})
+userRouter.route('/myportal')
+    .get(function (req, res) {
+        User.findOne({_id: req.params.userId}, function (err, user) {
+            if (err) res.status(500).send(err);
+            if (!user) res.status(404).send('Was not found');
+            else res.send(user);
+        });
+    })
 
-travelRouter.route('/:travelId')
-    .get(function(req,res){
-    Travel.findById(req.params.travelId, function (err, travel){
-        if (err) res.status(500).send(err);
-        if (!travel) res.status(404).send('No travel item found');
-        else res.send(travel);
-    });
-})
+    .put(function (req, res) {
+        console.log(req.user._id);
+        User.findOneAndUpdate({
+            _id: req.user._id
+        }, req.body, {new: true}, function (err, user) {
+            if (err) res.status(500).send(err);
+            console.log(user)
+            res.send(user);
+        });
+    })
+    .delete(function (req, res) {
+        User.findOneAndRemove({_id: req.params.userId}, function (err, user) {
+            if (err) res.status(500).send(err);
+            res.send(user);
+        });
+    })
 
-.put(function(req, res){
-    Travel.findbyIdAndUpdate(req.params.travelId, req.body, {new: true}, function (err, travel){
-        if (err) res.status(500).send(err);
-        res.send(travel);
-    });
-})
-.delete(function(req, res){
-    Travel.findByIdAndRemove(req.params.travelId, function (err, travel){
-        if (err) res.status(500).send(err);
-        res.send(travel);
-    });
-})
-
-module.exports = travelRouter;
+module.exports = userRouter;

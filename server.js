@@ -6,20 +6,20 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var config = require('./config');
 var port = process.env.PORT || 5000;
+var expressJwt = require('express-jwt')
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use('/travel', require("./routes/travelRoutes"));
-
+app.use(bodyParser.urlencoded({ extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
 mongoose.connect(config.database);
 mongoose.connect('mongodb://localhost/travelapp', function(err){
-    if (err) throw err;
+   console.log('Work');
 });
 
-app.get('/', function(req,res){
-    res.send("It's working");
-});
+app.use('/auth', require('./routes/authRoutes'));
+app.use('/api', expressJwt({secret: config.secret}));
+app.use('/api/travel', require("./routes/travelRoutes"));
 
 app.listen(port, function(){
     console.log('Server listening on port ' + port);

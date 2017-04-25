@@ -16,7 +16,23 @@ var userSchema = new Schema({
     admin: {
         type: Boolean,
         default: false
-    }
+    },
+    locationsToVisit: {
+        type: [String]
+    },
+    locationsHaveVisited: {
+        type: [String]
+    },
+    languagesHaveLearned: {
+        type: [String]
+    },
+    languagesToLearn: {
+        type: [String]
+    },
+    friends: [{
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    }]
 });
 
-module.exports = mongoose.mdeol("User", userSchema);
+module.exports = mongoose.model("User", userSchema);
