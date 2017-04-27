@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "background-video": "^2.0.1",
+    "bcrypt": "^1.0.2",
     "express-jwt": "^5.3.0",
     "jsonwebtoken": "^7.4.0"
   }

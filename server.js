@@ -8,16 +8,18 @@ var config = require('./config');
 var port = process.env.PORT || 5000;
 var expressJwt = require('express-jwt')
 
+mongoose.connect(config.database);
+mongoose.createConnection('mongodb://localhost/travelapp', function (err){
+    if (err) throw err;
+    console.log('Connected to the database')
+});
+
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
-mongoose.connect(config.database);
-mongoose.connect('mongodb://localhost/travelapp', function(err){
-   console.log('Work');
-});
-
 app.use('/auth', require('./routes/authRoutes'));
+app.use('/auth/change-password', expressJwt({secret: config.secret}));
 app.use('/api', expressJwt({secret: config.secret}));
 app.use('/api/travel', require("./routes/travelRoutes"));
 

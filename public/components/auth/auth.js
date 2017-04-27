@@ -10,11 +10,16 @@ app.config(["$routeProvider", function($routeProvider){
         })
         .when('/login', {
             templateUrl: "components/auth/login/login.html",
-            controller: "LoginController"
+            controller: "LoginController",
+            css:"loginpage.css"
         })
         .when('/myportal', {
             templateUrl: "components/portal/portal.html",
             controller:"PortalController"
+        })
+        .when('/edit', {
+            templateUrl: "components/edit/edit.html",
+            controller: "PortalController"
         })
         .when('/logout', {
             controller: "LogoutController",
@@ -39,12 +44,34 @@ app.service("UserService", ["$http", "$location", "TokenService", function ($htt
     this.signup = function (user) {
         return $http.post('/auth/signup', user);
     };
+
+    var self = this;
+
     this.login = function (user) {
         return $http.post('/auth/login', user).then(function(response){
+            self.currentUser = response.data;
             TokenService.setToken(response.data.token);
             return response;
         })
     };
+
+    this.get = function(){
+        return $http.get('/').then(function(response){
+            self.currentUser = response.data;
+            return response;
+        })
+    };
+    // this.edit = function (user){
+    //     return $http.put('/myportal', user).then(function(response){
+    //  slice out property from the user object
+    //     })
+    // }
+    this.put = function (item) {
+        return $http.put('/edit/', userService.currentUser.user).then(function (response) {
+            return response.data;
+        })
+    }
+
     this.logout = function (){
         TokenService.removeToken();
         $location.path('/');

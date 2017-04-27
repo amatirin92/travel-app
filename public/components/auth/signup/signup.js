@@ -7,7 +7,7 @@ app.controller("SignupController", ["$scope", "$location", "UserService", functi
         if (user.password !== $scope.passwordRepeat){
             $scope.passwoordMessage = "Passwords do not match"
         } else {
-            UserService.signup(user).then(function(respose){
+            UserService.signup(user).then(function(response){
                 $location.path('/login');
             }, function (response) {
                 alert("There was a problem: " + response.data);
