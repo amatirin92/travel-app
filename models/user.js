@@ -38,12 +38,6 @@ var userSchema = new Schema({
     }]
 });
 
-userSchema.plugin(friends);
-
-userSchema.getFriends(user1, function (err, friendships){
-
-});
-
 userSchema.pre("save", function (next) {
     var user = this;
     if (!user.isModified("password")) return next();
