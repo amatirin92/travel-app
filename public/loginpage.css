@@ -1,66 +1,87 @@
 
-* {
-    color: grey
-}
-/*html, body {*/
+/** {*/
+    /*color: grey*/
+/*}*/
+/*!*html, body {*!*/
+    /*!*height: 100%;*!*/
+/*!*}*!*/
+/*!*!*.ParallaxVideo{*!*!*/
+    /*!*!*height: 50%;*!*!*/
+    /*!*!*width:100%;*!*!*/
+    /*!*!*position: fixed;*!*!*/
+    /*!*!*z-index: -1; margin-top:0;*!*!*/
+    /*!*!*padding-top: 0;*!*!*/
+/*!*!*}*!*!*/
+/*!*!*.ParallaxVideo video{*!*!*/
+    /*!*!*position: fixed;*!*!*/
+    /*!*!*z-index: -999;*!*!*/
+/*!*!*}*!*!*/
+/*!*.parallax {*!*/
+/*!*!* Set a specific height *!*!*/
+/*!*height: 500%;*!*/
+    /*!*width: 100%;*!*/
+
+/*!*!* Create the parallax scrolling effect *!*!*/
+/*!*background-attachment: fixed;*!*/
+/*!*background-position: center;*!*/
+/*!*background-repeat: no-repeat;*!*/
+/*!*background-size: cover;*!*/
+/*!*}*!*/
+
+/*main {*/
+    /*position: relative;*/
+/*}*/
+
+/*!* Video wrap *!*/
+/*.bv-video-wrap {*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*!* Please note this is only required if you with to add the*/
+    /*'.bv-video-wrap--ready' class on the 'onReady' event *!*/
+    /*display: none;*/
+/*}*/
+
+/*.bv-video-wrap--ready {*/
+    /*display: block;*/
+/*}*/
+
+/*.bv-video-wrap::before {*/
+    /*!* Optional overlay *!*/
+    /*content: '';*/
+    /*position: absolute;*/
+    /*height: 100%;*/
+    /*width: 100%;*/
+    /*top: 0;*/
+    /*right: 0;*/
+    /*left: 0;*/
+    /*bottom: 0;*/
+    /*background: rgba(0, 0, 0, 0.5);*/
+    /*z-index: 10;*/
+/*}*/
+
+/*!* Video object *!*/
+/*.bv-video {*/
+    /*width: 100%;*/
     /*height: 100%;*/
 /*}*/
-/*!*.ParallaxVideo{*!*/
-    /*!*height: 50%;*!*/
-    /*!*width:100%;*!*/
-    /*!*position: fixed;*!*/
-    /*!*z-index: -1; margin-top:0;*!*/
-    /*!*padding-top: 0;*!*/
-/*!*}*!*/
-/*!*.ParallaxVideo video{*!*/
-    /*!*position: fixed;*!*/
-    /*!*z-index: -999;*!*/
-/*!*}*!*/
-/*.parallax {*/
-/*!* Set a specific height *!*/
-/*height: 500%;*/
-    /*width: 100%;*/
 
-/*!* Create the parallax scrolling effect *!*/
-/*background-attachment: fixed;*/
-/*background-position: center;*/
-/*background-repeat: no-repeat;*/
-/*background-size: cover;*/
-/*}*/
-
-main {
-    position: relative;
+video#bgvid {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background-size: cover;
 }
 
-/* Video wrap */
-.bv-video-wrap {
-    width: 100%;
-    height: 100%;
-    /* Please note this is only required if you with to add the
-    '.bv-video-wrap--ready' class on the 'onReady' event */
-    display: none;
-}
-
-.bv-video-wrap--ready {
-    display: block;
-}
-
-.bv-video-wrap::before {
-    /* Optional overlay */
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 10;
-}
-
-/* Video object */
-.bv-video {
-    width: 100%;
-    height: 100%;
+.parallax {
+    text-align: center;
+    padding: 70px 0;
 }

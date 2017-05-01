@@ -1,0 +1,13 @@
+.circular--square {
+    border-radius: 50%;
+}
+
+img {
+    width: 300px;
+    height: auto;
+    margin: auto;
+    display:block;
+}
+h1 {
+    text-align: center;
+}

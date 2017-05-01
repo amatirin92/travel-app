@@ -19,7 +19,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
 app.use('/auth', require('./routes/authRoutes'));
-app.use('/auth/change-password', expressJwt({secret: config.secret}));
 app.use('/api', expressJwt({secret: config.secret}));
 app.use('/api/travel', require("./routes/travelRoutes"));
 
@@ -30,5 +29,4 @@ app.listen(port, function(){
 //Make a primitive social site
 //Users MUST log in. After login, they have a list of languages they are learning or want to learn
 //and places they want to go. People can add friends and comment on their profiles.
-
 

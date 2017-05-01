@@ -15,11 +15,17 @@ app.config(["$routeProvider", function($routeProvider){
         })
         .when('/myportal', {
             templateUrl: "components/portal/portal.html",
-            controller:"PortalController"
+            controller:"PortalController",
+            css:"portal.css"
         })
         .when('/edit', {
             templateUrl: "components/edit/edit.html",
-            controller: "PortalController"
+            controller: "PortalController",
+            css:"edit.css"
+        })
+        .when('/search', {
+            templateUrl: "components/search/search.html",
+            controller: "SearchController"
         })
         .when('/logout', {
             controller: "LogoutController",
@@ -49,28 +55,29 @@ app.service("UserService", ["$http", "$location", "TokenService", function ($htt
 
     this.login = function (user) {
         return $http.post('/auth/login', user).then(function(response){
-            self.currentUser = response.data;
+            self.currentUser = response.data['user'];
             TokenService.setToken(response.data.token);
             return response;
         })
     };
 
     this.get = function(){
-        return $http.get('/').then(function(response){
-            self.currentUser = response.data;
+        return $http.get('/api/travel').then(function(response){
             return response;
         })
     };
-    // this.edit = function (user){
-    //     return $http.put('/myportal', user).then(function(response){
-    //  slice out property from the user object
-    //     })
-    // }
-    this.put = function (item) {
-        return $http.put('/edit/', userService.currentUser.user).then(function (response) {
+
+    this.getAll = function(){
+        return $http.get('/api/travel/search').then(function(response){
             return response.data;
         })
     }
+
+    this.put = function (user) {
+        return $http.put('/api/travel', user).then(function (response) {
+           return response.data;
+        })
+    };
 
     this.logout = function (){
         TokenService.removeToken();
