@@ -2,9 +2,9 @@
     <ul class="nav navbar-nav">
         <li ng-hide="userService.isAuthenticated()"><a href="/#/login">Login</a></li>
         <li ng-hide="userService.isAuthenticated()"><a href="/#/signup">Signup</a></li>
-        <li ng-show="userService.isAuthenticated()"><a href="#/search">Search</a></li>
         <li ng-show="userService.isAuthenticated()"><a href="#/myportal">Profile</a></li>
         <li ng-show="userService.isAuthenticated()"><a href="#/edit">Edit</a></li>
+        <li ng-show="userService.isAuthenticated()"><a href="#/search">Search</a></li>
         <li ng-show="userService.isAuthenticated()"><a href="/#/logout">Logout</a></li>
     </ul>
 </nav>

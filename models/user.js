@@ -50,7 +50,7 @@ userSchema.pre("save", function (next) {
     });
 });
 
-userSchema.methods.checkPassword = function(passwordAttempt, callback) {
+userSchema.methods.checkPassword = function (passwordAttempt, callback) {
     bcrypt.compare(passwordAttempt, this.password, function (err, isMatch) {
         if (err) return callback(err);
         callback(null, isMatch);
@@ -65,9 +65,9 @@ userSchema.methods.withoutPassword = function () {
 
 
 var options = {
-    personModelName:            'Users',
-    friendshipModelName:        'friendRelationships',
-    friendshipCollectionName:   'userRelationships'
+    personModelName: 'Users',
+    friendshipModelName: 'friendRelationships',
+    friendshipCollectionName: 'userRelationships'
 };
 
 

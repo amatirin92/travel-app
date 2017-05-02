@@ -2,18 +2,19 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
 
-<input ng-model="search"/>
+        <input ng-model="search"/>
 
-<select ng-model="key">
-    <option value="username">username</option>
-</select>
-<button class='btn btn-success' ng-click="getAll(key, search)"> Search</button>
+        <select ng-model="key">
+            <option value="username">username</option>
+        </select>
+        <button class='btn btn-success' ng-click="getAll(key, search)"> Search</button>
 
-<div ng-repeat = "item in users">
-{{item.username}} <button class="btn btn-success" ng-click="addFriend(user)"> Add</button>
-   <div ng-repeat="item in item.locationsToVisit">
-    {{item.locationsToVisit}}
-   </div>
-</div>
+        <div ng-repeat="item in users">
+            {{item.username}}
+            <button class="btn btn-success" ng-click="addFriend(user)"> Add</button>
+            <div ng-repeat="item in item.locationsToVisit">
+                {{item.locationsToVisit}}
+            </div>
+        </div>
     </div>
 </div>

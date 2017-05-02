@@ -9,20 +9,20 @@ var port = process.env.PORT || 5000;
 var expressJwt = require('express-jwt')
 
 mongoose.connect(config.database);
-mongoose.createConnection('mongodb://localhost/travelapp', function (err){
+mongoose.createConnection('mongodb://localhost/travelapp', function (err) {
     if (err) throw err;
     console.log('Connected to the database')
 });
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, "public")));
 app.use('/auth', require('./routes/authRoutes'));
 app.use('/api', expressJwt({secret: config.secret}));
 app.use('/api/travel', require("./routes/travelRoutes"));
 
-app.listen(port, function(){
+app.listen(port, function () {
     console.log('Server listening on port ' + port);
 });
 
