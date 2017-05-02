@@ -10,8 +10,12 @@ app.controller('PortalController', ['$scope', 'UserService', function($scope,Use
     $scope.get = function (){
         UserService.get().then(function(response){
             console.log(response)
-            $scope.user = response;
-            return response;
+            $scope.user = response.data;
+            $scope.languagesToLearn = $scope.user.languagesToLearn;
+            $scope.locationsHaveVisited = $scope.user.locationsHaveVisited;
+            $scope.locationsToVisit = $scope.user.locationsToVisit;
+            $scope.languagesHaveLearned = $scope.user.languagesHaveLearned;
+            $scope.friends = $scope.user.friends;
         })
     }
 

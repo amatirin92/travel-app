@@ -4,14 +4,18 @@ var User = require('../models/user');
 
 userRouter.route('/search')
 .get(function (req, res){
-    User.find({}, function(err, users){
+    var query = req.query || {};
+    User.find(query, function(err, users){
         if (err) res.status(500).send(err);
         res.send(users);
     });
 })
+
+
+
 userRouter.route('/')
     .get(function (req, res) {
-        User.findOne({_id: req.user._id}, function (err, user) {
+        User.findOne({_id: req.user._id}).populate('friends').exec(function (err, user) {
             if (err) res.status(500).send(err);
             if (!user) res.status(404).send('Was not found');
             else res.send(user);

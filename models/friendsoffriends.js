@@ -1,11 +1,13 @@
 var mongoose = require('mongoose');
-var FriendsOfFriends = require('friends-of-friends')(mongoose, options);
 
 
 var options = {
     personModelName:            'Users',
-    friendshipModelName:        'Friend_Relationships',
+    friendshipModelName:        'friendRelationships',
     friendshipCollectionName:   'userRelationships'
 };
 
-module.exports = FriendsOfFriends;
+
+var friendsOfFriends = require('friends-of-friends')(mongoose, options);
+
+module.exports = friendsOfFriends;

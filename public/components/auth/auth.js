@@ -67,8 +67,10 @@ app.service("UserService", ["$http", "$location", "TokenService", function ($htt
         })
     };
 
-    this.getAll = function(){
-        return $http.get('/api/travel/search').then(function(response){
+    this.getAll = function(key, value){
+        var query = '';
+        if (key && value) query = "?" + key + '=' + value;
+        return $http.get('/api/travel/search' + query).then(function(response){
             return response.data;
         })
     }
