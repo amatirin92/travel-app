@@ -80,8 +80,8 @@ app.service("UserService", ["$http", "$location", "TokenService", function ($htt
             return response.data;
         })
     };
-    this.putNew = function (user) {
-        return $http.put('/api/travel/', user).then(function (response) {
+    this.putNew = function (userToAdd, $index) {
+        return $http.put('/api/travel/', userToAdd).then(function (response) {
             return response.data;
         })
     }

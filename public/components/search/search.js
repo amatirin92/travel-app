@@ -10,11 +10,12 @@ app.controller('SearchController', ['$scope', 'UserService', function ($scope, U
         })
     }
 
-    $scope.addFriend = function (user){
+    $scope.addFriend = function (userToAdd, $index){
+        $scope.userToAdd = $scope.users[$index];
         $scope.user = UserService.currentUser;
         $scope.friends = $scope.user.friends;
-        UserService.putNew(user).then(function(response){
-           $scope.friends.push(user);
+        UserService.putNew(userToAdd).then(function(response){
+           $scope.friends.push($scope.userToAdd);
            console.log($scope.friends);
         });
     }

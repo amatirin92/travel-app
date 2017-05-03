@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
-// var friendsOfFriends = require('./friendsoffriends');
 var Schema = mongoose.Schema;
 
 
@@ -63,17 +62,4 @@ userSchema.methods.withoutPassword = function () {
     return user;
 };
 
-
-var options = {
-    personModelName: 'Users',
-    friendshipModelName: 'friendRelationships',
-    friendshipCollectionName: 'userRelationships'
-};
-
-
-var friendsOfFriends = require('friends-of-friends')(mongoose, options);
-
-userSchema.plugin(friendsOfFriends.plugin, options);
-
 module.exports = mongoose.model("User", userSchema);
-// module.exports = mongoose.model(options.User, userSchema);
