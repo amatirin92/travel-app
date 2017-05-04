@@ -1,21 +1,39 @@
 <script src="../auth/auth.js"></script>
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-8 col-md-offset-1">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-6">
+                <form>
+                    <input ng-model="search"/>
+                    <select ng-model="key">
+                        <option>all users</option>
+                        <option value="username">username</option>
+                        <option value="languagesHaveLearned">languages already known</option>
+                        <option value="languagesToLearn">languages learning</option>
+                    </select>
+                    <button class='btn btn-success' ng-click="getAll(key, search)"> Search</button>
+                </form>
+            </div>
+        </div>
 
-        <input ng-model="search"/>
-
-        <select ng-model="key">
-            <option selected>all users</option>
-            <option value="username">username</option>
-        </select>
-        <button class='btn btn-success' ng-click="getAll(key, search)"> Search</button>
-
-        <div ng-repeat="item in users track by $index">
-            {{item.username}} {{$index}}
-            <button class="btn btn-success" ng-click="addFriend(userToAdd, $index)"> Add</button>
-            <!--<div ng-repeat="item in item.locationsToVisit">-->
-                <!--{{item.locationsToVisit}}-->
-            <!--</div>-->
+        <div class="holder" ng-hide="box">
+            <div ng-repeat="item in users track by $index">
+                <div class="wrapper">
+                    <img class='img-responsive'
+                         ng-src="{{item.avatar}}" alt="profile image">
+                </div>
+                <h3>{{item.username}}</h3>
+                fluently speaks:
+                <div ng-repeat="lang in item.languagesHaveLearned">
+                    {{lang}}
+                </div>
+                and would like to learn:
+                <div ng-repeat="langToLearn in item.languagesToLearn">
+                    {{langToLearn}}
+                </div>
+                <button class="btn btn-success" ng-click="addFriend(item, $index)"> Add</button>
+            </div>
         </div>
     </div>
 </div>
+

@@ -2,27 +2,30 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="row">
-            <h1> EDIT PAGE!!!!</h1>
-            <h1>Hi {{user.username}} !</h1>
+            <div class="col-md-6">
             <h2>Name: {{user.name}}</h2>
             <h3>Languages Learning:
-                <div ng-repeat="languageToLearn in languagesToLearn">{{languageToLearn}}</div>
+                <div ng-repeat="languageToLearn in languagesToLearn">{{languageToLearn}}
+                    <input type="text" class=" text-line" placeholder="languages to learn" ng-model="user.languagesToLearn">
+                </div>
             </h3>
             <h3>Languages Known:
-                <div ng-repeat="languageKnown in languagesHaveLearned track by $index">{{languageKnown}}</div>
+                <div ng-repeat="languageKnown in languagesHaveLearned track by $index">{{languageKnown}}
+                    <input type="text" class="text-line" placeholder="languages known" ng-model="user.languagesHaveLearned"></div>
             </h3>
             <h3>Places To Visit:
-                <div ng-repeat="place in locationsToVisit track by $index">{{place}}</div>
+                <div ng-repeat="place in locationsToVisit track by $index">{{place}}
+                    <input type="text" class="text-line" placeholder="cities to visit" ng-model="user.locationsToVisit"></div>
             </h3>
             <h3>Places Have Visited:
-                <div ng-repeat="placeSeen in locationsHaveVisited track by $index">{{placeSeen}}</div>
+                <div ng-repeat="placeSeen in locationsHaveVisited track by $index">{{placeSeen}}
+                    <!--<input type="text" class="text-line" placeholder="cities have visited" ng-model="user.locationsHaveVisited">-->
+                </div>
             </h3>
-            <input type="text" class=" text-line" placeholder="languages to learn" ng-model="user.languagesToLearn">
-            <input type="text" class="text-line" placeholder="languages known" ng-model="user.languagesHaveLearned">
-            <input type="text" class="text-line" placeholder="cities to visit" ng-model="user.locationsToVisit">
-            <input type="text" class="text-line" placeholder="cities have visited" ng-model="user.locationsHaveVisited">
+            <!--<input type="text" class="text-line" placeholder="cities have visited" ng-model="user.locationsHaveVisited">-->
             <button type='button' class="btn btn-sm" ng-click='put(user)'>Submit Changes</button>
         </div>
+    </div>
     </div>
 
     <hr>

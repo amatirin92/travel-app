@@ -25,7 +25,8 @@ app.config(["$routeProvider", function ($routeProvider) {
         })
         .when('/search', {
             templateUrl: "components/search/search.html",
-            controller: "SearchController"
+            controller: "PortalController",
+            css: "search.css"
         })
         .when('/logout', {
             controller: "LogoutController",
@@ -52,10 +53,12 @@ app.service("UserService", ["$http", "$location", "TokenService", function ($htt
     };
 
     var self = this;
+    this.currentUser = JSON.parse(localStorage.getItem('user')) || {};
 
     this.login = function (user) {
         return $http.post('/auth/login', user).then(function (response) {
-            self.currentUser = response.data['user'];
+            self.currentUser = response.data.user;
+            localStorage.setItem('user', JSON.stringify(response.data.user))
             TokenService.setToken(response.data.token);
             return response;
         })
@@ -66,28 +69,32 @@ app.service("UserService", ["$http", "$location", "TokenService", function ($htt
             return response;
         })
     };
-
     this.getAll = function (key, value) {
         var query = '';
         if (key && value) query = "?" + key + '=' + value;
         return $http.get('/api/travel/search' + query).then(function (response) {
             return response.data;
         })
-    }
+    };
 
     this.put = function (user) {
         return $http.put('/api/travel', user).then(function (response) {
             return response.data;
         })
     };
-    this.putNew = function (userToAdd, $index) {
-        return $http.put('/api/travel/', userToAdd).then(function (response) {
+    this.putNew = function (user) {
+        return $http.post('/api/travel/search', user).then(function (response) {
             return response.data;
         })
-    }
+    };
+
+    //post a new friend to the friends array
+    // //api/user/:id/friends
+
 
     this.logout = function () {
         TokenService.removeToken();
+        localStorage.removeItem('user');
         $location.path('/');
     };
     this.isAuthenticated = function () {

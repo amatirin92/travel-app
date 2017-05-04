@@ -6,11 +6,10 @@ app.controller('PortalController', ['$scope', 'UserService', function ($scope, U
     $scope.locationsToVisit = $scope.user.locationsToVisit;
     $scope.languagesHaveLearned = $scope.user.languagesHaveLearned;
     $scope.friends = $scope.user.friends;
-    // $scope.user.friends.length = $scope.numberOfFriends;
+    $scope.avatar = $scope.user.avatar;
 
     $scope.get = function () {
         UserService.get().then(function (response) {
-            console.log(response);
             $scope.user = response.data;
             $scope.languagesToLearn = $scope.user.languagesToLearn;
             $scope.locationsHaveVisited = $scope.user.locationsHaveVisited;
@@ -18,12 +17,36 @@ app.controller('PortalController', ['$scope', 'UserService', function ($scope, U
             $scope.languagesHaveLearned = $scope.user.languagesHaveLearned;
             $scope.friends = $scope.user.friends;
         })
-    }
+    };
+    $scope.get();
+
+
+    $scope.getAll = function (key,search,userFriends, $index){
+        UserService.getAll(key,search).then(function(response){
+            userFriends = UserService.currentUser.friends;
+            // for (var i = 0; i < userFriends.length; i++){
+            //    if (userFriends[i] === response[i]){
+            //        console.log('it Matches!')
+            //    }
+            // }
+            $scope.users = response;
+        })
+    };
+
+    $scope.addFriend = function (user, $index){
+        $scope.userToAdd = $scope.users[$index];
+        $scope.user = UserService.currentUser;
+        $scope.friends = $scope.user.friends;
+        UserService.putNew(user).then(function(response){
+            $scope.friends.push($scope.userToAdd);
+        });
+    };
+
 
     $scope.put = function (user) {
         UserService.put(user).then(function (response) {
             $scope.get();
         })
-    }
+    };
 
 }]);
