@@ -38,10 +38,10 @@ app.controller('PortalController', ['$scope', 'UserService', function ($scope, U
         $scope.user = UserService.currentUser;
         $scope.friends = $scope.user.friends;
         UserService.putNew(user).then(function(response){
+            $scope.requests = response;
             $scope.friends.push($scope.userToAdd);
         });
     };
-
 
     $scope.put = function (user) {
         UserService.put(user).then(function (response) {

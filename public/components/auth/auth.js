@@ -23,6 +23,10 @@ app.config(["$routeProvider", function ($routeProvider) {
             controller: "PortalController",
             css: "edit.css"
         })
+        .when('/friendrequests', {
+            templateUrl: "components/friendrequests/friendrequests.html",
+            controller: "FriendRequestsController"
+        })
         .when('/search', {
             templateUrl: "components/search/search.html",
             controller: "PortalController",
@@ -79,13 +83,14 @@ app.service("UserService", ["$http", "$location", "TokenService", function ($htt
 
     this.put = function (user) {
         return $http.put('/api/travel', user).then(function (response) {
-            return response.data;
+            return response;
         })
     };
     this.putNew = function (user) {
         return $http.post('/api/travel/search', user).then(function (response) {
-            return response.data;
+            return response;
         })
+
     };
 
     //post a new friend to the friends array

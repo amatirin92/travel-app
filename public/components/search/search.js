@@ -13,10 +13,10 @@ app.controller('SearchController', ['$scope', 'UserService', function ($scope, U
         $scope.user = UserService.currentUser;
         $scope.friends = $scope.user.friends;
         UserService.putNew(userToAdd,user).then(function(response){
-            user.friends.push(userToAdd);
             console.log(response);
+            $scope.request = response;
+            user.friends.push(userToAdd);
            $scope.friends.push($scope.userToAdd);
-           console.log($scope.friends);
         });
     }
 }]);

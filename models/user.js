@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var Schema = mongoose.Schema;
-
+var FriendsOfFriends = require('friends-of-friends');
 
 var userSchema = new Schema({
     name: String,
@@ -37,8 +37,20 @@ var userSchema = new Schema({
     friends: [{
         type: Schema.Types.ObjectId,
         ref: "User"
+    }],
+    relationships: [{
+        type: Schema.Types.ObjectId,
+        ref: 'userRelationships'
     }]
 });
+
+var options = {
+    personModelName:            'User',
+    friendshipModelName:        'friendRelationships',
+    friendshipCollectionName:   'userRelationships'
+};
+
+var fof = new FriendsOfFriends(mongoose, options);
 
 userSchema.pre("save", function (next) {
     var user = this;
@@ -64,5 +76,8 @@ userSchema.methods.withoutPassword = function () {
     delete user.password;
     return user;
 };
+userSchema.plugin(fof.plugin, options);
+
+var User = mongoose.model(options.personModelName, userSchema);
 
 module.exports = mongoose.model("User", userSchema);

@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var config = require('./config');
 var port = process.env.PORT || 5000;
-var expressJwt = require('express-jwt')
+var expressJwt = require('express-jwt');
 
 mongoose.connect(config.database);
 mongoose.createConnection('mongodb://localhost/travelapp', function (err) {
