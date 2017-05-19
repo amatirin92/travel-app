@@ -12,17 +12,10 @@ userRouter.route('/search')
         });
     })
     .post(function (req, res){
-      User.findById(req.user._id, function(err, user){
-        user.friendRequest(req.body._id, function(err, request){
-          if (err) throw err;
-          console.log(request);
-            res.send(request);
+        User.requestFriend(req.user._id, req.body._id, function (err, friends){
+            console.log(friends);
+            res.send(friends);
         });
-      })
-        // User.findByIdAndUpdate(req.user._id, {$push: {"friends": req.body._id}}, {safe: true, upsert: true, new: true},
-        // function(err,user){
-        //     res.send(user.withoutPassword());
-        // })
     })
     .put(function (req, res) {
       User.findOneAndUpdate({
@@ -34,14 +27,16 @@ userRouter.route('/search')
     });
 userRouter.route('/')
     .get(function (req, res) {
-        User.findById({_id: req.user._id}).populate('friends').exec(function (err, user) {
-            user.getFriends(function(err, friends) {
-                if (err) res.status(500).send(err);
-                if (!user) res.status(404).send('Was not found');
-                else res.send(user);
-                console.log('friends', friends)
-            })
-        })
+        User.findById(req.user._id, function (err, user){
+            res.send(user);
+        };
+        //
+        // User.getFriends(req.user._id, function (err, friendships) {
+        //     // friendships looks like:
+        //     // [{status: "accepted", added: <Date added>, friend: user2}]
+        //     console.log(friendships);
+        //     res.send(friendships);
+        // });
     })
     .put(function (req, res) {
         User.findByIdAndUpdate({
@@ -53,16 +48,16 @@ userRouter.route('/')
     });
 
 userRouter.route('/friendrequests')
-  .post(function (req, res) {
-    User.findByIdAndUpdate(req.user._id, {$push: {"friends": req.body._id}}, {safe: true, upsert: true, new: true}, function (err, user) {
-      user.acceptRequest(req.body._id, function (err, friendship) {
-        if (err) throw err;
-        console.log('friendship', friendship);
-      });
+    .post(function (req, res){
+        User.requestFriend(req.body._id, req.user._id, function (err, newFriend){
+            console.log(newFriend);
+        })
+    })
+    .put(function (req, res) {
+    User.removeFriend(req.user._id, req.body._id, function (err, byeFriend) {
+        console.log(byeFriend);
+        })
     });
-  });
-
-
 
 
 // .delete(function (req, res) {
