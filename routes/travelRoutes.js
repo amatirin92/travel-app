@@ -27,17 +27,22 @@ userRouter.route('/search')
     });
 userRouter.route('/')
     .get(function (req, res) {
-        User.findById(req.user._id, function (err, user){
+        User.findById({_id: req.user._id}).populate('friends').exec(function (err, user) {
+            if (err) throw err;
             res.send(user);
-        };
-        //
-        // User.getFriends(req.user._id, function (err, friendships) {
-        //     // friendships looks like:
-        //     // [{status: "accepted", added: <Date added>, friend: user2}]
-        //     console.log(friendships);
-        //     res.send(friendships);
-        // });
+        })
     })
+    //     User.findById(req.user._id, function (err, user){
+    //         res.send(user);
+    //     };
+    //     //
+    //     // User.getFriends(req.user._id, function (err, friendships) {
+    //     //     // friendships looks like:
+    //     //     // [{status: "accepted", added: <Date added>, friend: user2}]
+    //     //     console.log(friendships);
+    //     //     res.send(friendships);
+    //     // });
+    // })
     .put(function (req, res) {
         User.findByIdAndUpdate({
             _id: req.user._id
